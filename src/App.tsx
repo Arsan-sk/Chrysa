@@ -21,6 +21,7 @@ function useRevealMotion() {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const processMedia = gsap.matchMedia();
     const context = gsap.context(() => {
       const reduceMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -80,7 +81,8 @@ function useRevealMotion() {
       const processCounter = document.querySelector<HTMLElement>(
         ".process-counter-current",
       );
-      const processTimeline = gsap.timeline({
+      processMedia.add("(min-width: 801px)", () => {
+        const processTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: ".process-scroll",
           start: "top top",
@@ -97,8 +99,8 @@ function useRevealMotion() {
               ).padStart(2, "0");
           },
         },
-      });
-      processCards.forEach((card, index) => {
+        });
+        processCards.forEach((card, index) => {
         const incomingDirection = index % 2 === 0 ? 64 : -64;
         processTimeline
           .fromTo(
@@ -134,6 +136,8 @@ function useRevealMotion() {
             },
             index < processCards.length - 1 ? "+=.25" : "+=.45",
           );
+        });
+        return () => processTimeline.kill();
       });
 
       gsap.utils
@@ -150,7 +154,10 @@ function useRevealMotion() {
         });
     }, root);
 
-    return () => context.revert();
+    return () => {
+      context.revert();
+      processMedia.revert();
+    };
   }, []);
 
   return root;

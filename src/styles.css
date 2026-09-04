@@ -2179,16 +2179,18 @@ h1 em,
 
 @media (max-width: 800px) {
   .process-scroll {
-    height: 600vh;
+    height: auto;
   }
 
   .process-layout {
     display: block;
+    height: auto;
     padding-top: 7rem;
+    padding-bottom: 5rem;
   }
 
   .process-anchor {
-    height: 38%;
+    height: auto;
   }
 
   .process-anchor h2 {
@@ -2208,8 +2210,11 @@ h1 em,
   }
 
   .process-card-stage {
-    height: 52%;
-    min-height: 330px;
+    display: grid;
+    gap: 1rem;
+    height: auto;
+    min-height: 0;
+    margin-top: 2.5rem;
   }
 
   .process-card-body h3 {
@@ -2221,7 +2226,13 @@ h1 em,
   }
 
   .process-card {
+    position: relative;
+    inset: auto;
+    min-height: 360px;
     padding: 1.4rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
   }
 
   .process-card::before {
@@ -2309,5 +2320,261 @@ h1 em,
   .process-card-body .kicker {
     margin-bottom: 1rem;
     font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-pad {
+    padding-right: 1.1rem;
+    padding-left: 1.1rem;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: clamp(2.45rem, 13vw, 4rem);
+  }
+
+  .site-nav {
+    height: 64px;
+    padding: 0 1.1rem;
+  }
+
+  .mobile-menu {
+    top: 64px;
+    right: .75rem;
+    left: .75rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 7.5rem;
+  }
+
+  .hero-copy .kicker {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-support {
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+  }
+
+  .hero-figure {
+    width: min(78vw, 310px);
+    margin: 2rem auto 3rem;
+  }
+
+  .hero-footer {
+    gap: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .recognition,
+  .elastic-section,
+  .about,
+  .faq {
+    gap: 2.2rem;
+  }
+
+  .recognition-row,
+  .capability-row {
+    grid-template-columns: 2rem 1fr;
+    gap: .65rem;
+    padding: 1.2rem 0;
+  }
+
+  .recognition-row p {
+    font-size: 1rem;
+  }
+
+  .recognition-row > span:last-child,
+  .capability-scope {
+    grid-column: 2;
+  }
+
+  .transform-inner {
+    min-height: 0;
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  .transform-copy h2 {
+    min-height: 3.1em;
+    font-size: clamp(2.4rem, 12vw, 3.5rem);
+  }
+
+  .transformation-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    min-height: 0;
+  }
+
+  .flow-stage,
+  .flow-system,
+  .flow-bridge {
+    width: 100%;
+  }
+
+  .flow-bridge {
+    min-height: 2rem;
+  }
+
+  .flow-bridge-line {
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .flow-bridge i {
+    margin: auto;
+  }
+
+  .flow-system {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .capability-list {
+    margin-top: 2rem;
+  }
+
+  .capability-row h3 {
+    font-size: 1.55rem;
+  }
+
+  .capability-row p {
+    font-size: .86rem;
+  }
+
+  .work {
+    padding-bottom: 6rem;
+  }
+
+  .work-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .project-stack {
+    gap: 1rem;
+  }
+
+  .project-visual {
+    min-height: 230px;
+  }
+
+  .project-info {
+    min-height: 0;
+    padding: 1.5rem;
+  }
+
+  .project-info h3 {
+    margin-bottom: .9rem;
+    font-size: clamp(2.7rem, 15vw, 4rem);
+  }
+
+  .project-info a {
+    margin-top: 2rem;
+  }
+
+  .process-layout {
+    padding-top: 6.5rem;
+  }
+
+  .process-anchor {
+    height: auto;
+  }
+
+  .process-anchor h2 {
+    font-size: clamp(2.45rem, 13vw, 3.8rem);
+  }
+
+  .process-guide {
+    margin-top: 2rem;
+  }
+
+  .process-card-stage {
+    height: auto;
+    min-height: 0;
+    margin-top: 2.5rem;
+  }
+
+  .process-card {
+    min-height: 330px;
+    padding: 1.2rem;
+    box-shadow: 8px 10px 0 rgba(27, 29, 28, .08);
+  }
+
+  .process-card-body h3 {
+    font-size: clamp(2.25rem, 14vw, 3.6rem);
+  }
+
+  .process-card-body > p:last-child {
+    max-width: 28ch;
+  }
+
+  .philosophy {
+    min-height: 0;
+  }
+
+  .philosophy-header {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .philosophy-layout {
+    margin-top: 2rem;
+  }
+
+  .philosophy-visual {
+    width: min(100%, 290px);
+    margin: auto;
+  }
+
+  .faq-question {
+    min-height: 64px;
+  }
+
+  .faq-question span {
+    padding-right: .75rem;
+    font-size: 1rem;
+  }
+
+  .final-cta {
+    min-height: 0;
+    padding-bottom: 5rem;
+  }
+
+  .final-cta h2 {
+    margin-bottom: 2rem;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    min-height: 46px;
+    padding: .75rem;
+    font-size: 1rem;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+  }
+
+  .footer-main {
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer-line {
+    margin-right: 1.1rem;
+    margin-left: 1.1rem;
   }
 }
