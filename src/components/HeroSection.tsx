@@ -37,107 +37,118 @@ export function HeroSection() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) return
 
-    const ctx = gsap.context(() => {
-      /* ── Master Hero Scroll Timeline ── */
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=200%',
-          pin: pin,
-          scrub: 1,
-          anticipatePin: 1,
-        },
-      })
+    const mm = gsap.matchMedia(section)
 
-      // Initial state: hide state 1 & 2
-      gsap.set('.hero-state-1', { opacity: 0, y: 24, pointerEvents: 'none' })
-      gsap.set('.hero-state-2', { opacity: 0, y: 24, pointerEvents: 'none' })
+    mm.add(
+      {
+        isDesktop: '(min-width: 801px)',
+        isMobile: '(max-width: 800px)',
+      },
+      (context) => {
+        const { isMobile } = context.conditions as { isDesktop: boolean; isMobile: boolean }
+        const scrollDistance = isMobile ? '+=120%' : '+=200%'
 
-      // Step 1: Fade out support text and CTA
-      tl.to('.hero-intro-fade', {
-        opacity: 0,
-        y: -15,
-        duration: 0.15,
-        ease: 'power2.in',
-      })
+        /* ── Master Hero Scroll Timeline ── */
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: scrollDistance,
+            pin: pin,
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        })
 
-      // Step 2: Transition State 0 -> State 1
-      tl.to('.hero-state-0', {
-        opacity: 0,
-        y: -24,
-        duration: 0.25,
-        ease: 'power2.inOut',
-        pointerEvents: 'none',
-      }, '+=0.05')
-      tl.to('.hero-state-1', {
-        opacity: 1,
-        y: 0,
-        duration: 0.25,
-        ease: 'power2.out',
-        pointerEvents: 'auto',
-      }, '-=0.1')
+        // Initial state: hide state 1 & 2
+        gsap.set('.hero-state-1', { opacity: 0, y: 24, pointerEvents: 'none' })
+        gsap.set('.hero-state-2', { opacity: 0, y: 24, pointerEvents: 'none' })
 
-      // Hold State 1
-      tl.to({}, { duration: 0.15 })
+        // Step 1: Fade out support text and CTA
+        tl.to('.hero-intro-fade', {
+          opacity: 0,
+          y: -15,
+          duration: 0.15,
+          ease: 'power2.in',
+        })
 
-      // Step 3: Transition State 1 -> State 2
-      tl.to('.hero-state-1', {
-        opacity: 0,
-        y: -24,
-        duration: 0.25,
-        ease: 'power2.inOut',
-        pointerEvents: 'none',
-      })
-      tl.to('.hero-state-2', {
-        opacity: 1,
-        y: 0,
-        duration: 0.25,
-        ease: 'power2.out',
-        pointerEvents: 'auto',
-      }, '-=0.1')
+        // Step 2: Transition State 0 -> State 1
+        tl.to('.hero-state-0', {
+          opacity: 0,
+          y: -24,
+          duration: 0.25,
+          ease: 'power2.inOut',
+          pointerEvents: 'none',
+        }, '+=0.05')
+        tl.to('.hero-state-1', {
+          opacity: 1,
+          y: 0,
+          duration: 0.25,
+          ease: 'power2.out',
+          pointerEvents: 'auto',
+        }, '-=0.1')
 
-      // Hold State 2 before unpinning
-      tl.to({}, { duration: 0.15 })
+        // Hold State 1
+        tl.to({}, { duration: 0.15 })
 
-      // Continuous SVG mark rotation
-      gsap.to('.hero-mark', {
-        rotate: '+=180',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=200%',
-          scrub: 1,
-        },
-      })
+        // Step 3: Transition State 1 -> State 2
+        tl.to('.hero-state-1', {
+          opacity: 0,
+          y: -24,
+          duration: 0.25,
+          ease: 'power2.inOut',
+          pointerEvents: 'none',
+        })
+        tl.to('.hero-state-2', {
+          opacity: 1,
+          y: 0,
+          duration: 0.25,
+          ease: 'power2.out',
+          pointerEvents: 'auto',
+        }, '-=0.1')
 
-      // Orbit rotations
-      gsap.to('.hero-orbit.orbit-one', {
-        rotate: '+=30',
-        scaleX: 0.55,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=200%',
-          scrub: 1.2,
-        },
-      })
-      gsap.to('.hero-orbit.orbit-two', {
-        rotate: '+=25',
-        scaleX: 0.8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=200%',
-          scrub: 1.2,
-        },
-      })
-    }, section)
+        // Hold State 2 before unpinning
+        tl.to({}, { duration: 0.15 })
 
-    return () => ctx.revert()
+        // Continuous SVG mark rotation
+        gsap.to('.hero-mark', {
+          rotate: '+=180',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: scrollDistance,
+            scrub: 1,
+          },
+        })
+
+        // Orbit rotations
+        gsap.to('.hero-orbit.orbit-one', {
+          rotate: '+=30',
+          scaleX: 0.55,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: scrollDistance,
+            scrub: 1.2,
+          },
+        })
+        gsap.to('.hero-orbit.orbit-two', {
+          rotate: '+=25',
+          scaleX: 0.8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: scrollDistance,
+            scrub: 1.2,
+          },
+        })
+      }
+    )
+
+    return () => mm.revert()
   }, [])
 
   return (

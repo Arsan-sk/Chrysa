@@ -9,9 +9,20 @@ export function SampleWorksCarousel() {
   const [dragOffset, setDragOffset] = useState(0)
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({})
   const [isPaused, setIsPaused] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const total = sampleWorks.length
+
+  // Track viewport width for responsive 3D coverflow geometry
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % total)
@@ -25,13 +36,13 @@ export function SampleWorksCarousel() {
     setActiveIndex((index + total) % total)
   }
 
-  // Automatic continuous loop
+  // Automatic continuous loop (4.5s)
   useEffect(() => {
     if (isPaused || isDragging) return
 
     const timer = setInterval(() => {
       goToNext()
-    }, 4000)
+    }, 4500)
 
     return () => clearInterval(timer)
   }, [isPaused, isDragging, goToNext])
@@ -75,7 +86,7 @@ export function SampleWorksCarousel() {
     }
   }
 
-  // Touch and Drag handling
+  // Touch and Drag handling with pan-y protection
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsDragging(true)
     setStartX(e.touches[0].clientX)
@@ -85,15 +96,17 @@ export function SampleWorksCarousel() {
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return
     const currentX = e.touches[0].clientX
-    setDragOffset(currentX - startX)
+    const diff = currentX - startX
+    // Allow slight drag response
+    setDragOffset(diff)
   }
 
   const handleTouchEnd = () => {
     if (!isDragging) return
     setIsDragging(false)
-    if (dragOffset < -50) {
+    if (dragOffset < -40) {
       goToNext()
-    } else if (dragOffset > 50) {
+    } else if (dragOffset > 40) {
       goToPrev()
     }
     setDragOffset(0)
@@ -113,9 +126,9 @@ export function SampleWorksCarousel() {
   const handleMouseUp = () => {
     if (!isDragging) return
     setIsDragging(false)
-    if (dragOffset < -60) {
+    if (dragOffset < -50) {
       goToNext()
-    } else if (dragOffset > 60) {
+    } else if (dragOffset > 50) {
       goToPrev()
     }
     setDragOffset(0)
@@ -125,7 +138,7 @@ export function SampleWorksCarousel() {
     setImageErrorMap((prev) => ({ ...prev, [id]: true }))
   }
 
-  // Calculate position styles for coverflow layout
+  // Calculate position styles for coverflow layout with responsive spacing
   const getCardStyle = (index: number) => {
     let diff = index - activeIndex
     if (diff > total / 2) diff -= total
@@ -134,11 +147,13 @@ export function SampleWorksCarousel() {
     const isCenter = diff === 0
     const absDiff = Math.abs(diff)
 
-    const translateX = diff * 320 + (isDragging ? dragOffset * 0.4 : 0)
-    const translateZ = isCenter ? 0 : -140 * absDiff
-    const rotateY = isCenter ? 0 : diff > 0 ? -16 : 16
-    const scale = isCenter ? 1 : Math.max(0.72, 1 - absDiff * 0.14)
-    const opacity = absDiff > 2 ? 0 : isCenter ? 1 : Math.max(0.35, 1 - absDiff * 0.3)
+    // Responsive step: 230px on mobile vs 320px on desktop
+    const stepSize = isMobile ? 220 : 320
+    const translateX = diff * stepSize + (isDragging ? dragOffset * 0.4 : 0)
+    const translateZ = isCenter ? 0 : (isMobile ? -100 : -140) * absDiff
+    const rotateY = isCenter ? 0 : diff > 0 ? (isMobile ? -12 : -16) : (isMobile ? 12 : 16)
+    const scale = isCenter ? 1 : Math.max(isMobile ? 0.76 : 0.72, 1 - absDiff * (isMobile ? 0.12 : 0.14))
+    const opacity = absDiff > 2 ? 0 : isCenter ? 1 : Math.max(isMobile ? 0.3 : 0.35, 1 - absDiff * 0.35)
     const zIndex = 20 - absDiff
 
     return {
@@ -167,7 +182,7 @@ export function SampleWorksCarousel() {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       tabIndex={0}
-      aria-label="Sample works showcase carousel with continuous auto-loop. Use arrow buttons or keys to navigate."
+      aria-label="Sample works showcase carousel with continuous auto-loop. Use arrow buttons or swipe to navigate."
     >
       {/* Side Arrow Navigation Buttons */}
       <button
@@ -176,7 +191,7 @@ export function SampleWorksCarousel() {
         onClick={goToPrev}
         aria-label="Previous sample work"
       >
-        <ChevronLeft size={22} />
+        <ChevronLeft size={20} />
       </button>
 
       <button
@@ -185,7 +200,7 @@ export function SampleWorksCarousel() {
         onClick={goToNext}
         aria-label="Next sample work"
       >
-        <ChevronRight size={22} />
+        <ChevronRight size={20} />
       </button>
 
       {/* 3D Coverflow Stage */}
@@ -249,7 +264,7 @@ export function SampleWorksCarousel() {
                         <div className="mockup-line" />
                       </div>
                       <div className="mockup-center-icon">
-                        <Sparkles size={32} color={work.accentColor || '#e84d37'} />
+                        <Sparkles size={28} color={work.accentColor || '#e84d37'} />
                         <span className="mockup-tag">{work.category}</span>
                         <h4 className="mockup-title">{work.title}</h4>
                       </div>
@@ -278,7 +293,7 @@ export function SampleWorksCarousel() {
                         className="sample-live-link"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Launch Interface <ExternalLink size={14} />
+                        Launch Interface <ExternalLink size={13} />
                       </a>
                     ) : (
                       <span className="sample-concept-label">System Architecture Sample</span>

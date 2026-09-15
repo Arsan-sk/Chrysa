@@ -83,6 +83,9 @@ export function ConnectedSystemAnimation() {
     const container = containerRef.current
     if (!container) return
 
+    const isMobile = window.innerWidth < 800
+    const scaleFactor = isMobile ? 0.58 : 1
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) {
       // Assemble immediately for reduced motion
@@ -90,8 +93,8 @@ export function ConnectedSystemAnimation() {
         const el = container.querySelector(`.connected-mod-${mod.id}`)
         if (el) {
           gsap.set(el, {
-            x: mod.assembled.x,
-            y: mod.assembled.y,
+            x: mod.assembled.x * scaleFactor,
+            y: mod.assembled.y * scaleFactor,
             rotate: 0,
             scale: 1,
             opacity: 1,
@@ -109,8 +112,8 @@ export function ConnectedSystemAnimation() {
         const el = container.querySelector(`.connected-mod-${mod.id}`)
         if (el) {
           gsap.set(el, {
-            x: mod.scattered.x,
-            y: mod.scattered.y,
+            x: mod.scattered.x * scaleFactor,
+            y: mod.scattered.y * scaleFactor,
             rotate: mod.scattered.rotate,
             scale: mod.scattered.scale,
             opacity: 0.45,
