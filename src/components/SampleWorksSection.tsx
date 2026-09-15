@@ -2,7 +2,7 @@ import { SampleWorksCarousel } from './SampleWorksCarousel'
 
 export function SampleWorksSection() {
   return (
-    <section id="sample-works" className="sample-works-section section-pad">
+    <section id="sample-works" className="sample-works-section">
       <div className="sample-works-header reveal">
         <div className="sample-header-left">
           <p className="kicker">04 — Interfaces & Applications</p>

@@ -2899,7 +2899,11 @@ h1 em,
   border-top: 1px solid var(--line);
   position: relative;
   overflow: clip;
-  padding: clamp(5rem, 9vw, 8rem) clamp(1.25rem, 5vw, 5rem) clamp(8rem, 15vw, 13rem);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(3.5rem, 6vh, 5.5rem) clamp(1.25rem, 5vw, 5rem) clamp(5.5rem, 8vh, 8.5rem);
 }
 
 .sample-works-header {
@@ -3575,6 +3579,23 @@ h1 em,
     padding: 2rem 1.5rem;
   }
 
+  .sample-works-section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(2rem, 4vh, 3.2rem);
+    padding-bottom: clamp(4.5rem, 9vh, 7rem);
+    padding-left: clamp(1rem, 4vw, 2.5rem);
+    padding-right: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .sample-works-header {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-bottom: clamp(1rem, 2vh, 1.75rem);
+  }
+
   /* Form controls font size on mobile to prevent iOS Safari auto-zoom */
   .contact-form input,
   .contact-form textarea,
@@ -3654,8 +3675,19 @@ h1 em,
   }
 
   .sample-works-section {
-    padding-top: clamp(3.5rem, 8vw, 5rem);
-    padding-bottom: clamp(5rem, 12vw, 8rem);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(1.5rem, 3vh, 2.5rem);
+    padding-bottom: clamp(5rem, 10vh, 8rem);
+    padding-left: clamp(0.75rem, 3.5vw, 1.5rem);
+    padding-right: clamp(0.75rem, 3.5vw, 1.5rem);
+  }
+
+  .sample-works-carousel-container {
+    min-height: auto;
+    padding: 0.2rem 0 0.5rem;
   }
 
   .sample-stage-3d {
@@ -3693,7 +3725,7 @@ h1 em,
 
   .sample-nav-bar {
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 
   .process-layout {
@@ -3744,6 +3776,19 @@ h1 em,
 }
 
 @media (max-width: 480px) {
+  .sample-works-section {
+    padding-top: 1.25rem;
+    padding-bottom: clamp(4.5rem, 11vh, 7.5rem);
+  }
+
+  .sample-works-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .sample-stage-3d {
+    height: clamp(360px, 49vh, 410px);
+  }
+
   h1 {
     font-size: clamp(2.2rem, 11vw, 3.4rem);
   }
