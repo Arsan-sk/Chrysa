@@ -43,7 +43,6 @@ export function LayeredRevealWrapper({ foreground, background }: LayeredRevealPr
             end: scrollDistance,
             pin: true,
             scrub: 1.2,
-            anticipatePin: 1,
           },
         })
 
@@ -75,89 +74,97 @@ export function LayeredRevealWrapper({ foreground, background }: LayeredRevealPr
         }, '<0.15')
 
         // Phase 4: Right side Connected System animation on scroll
-        const pos = isMobile
-          ? {
-              data: { x: -80, y: -75 },
-              logic: { x: 80, y: -75 },
-              interface: { x: 95, y: 8 },
-              signals: { x: 75, y: 80 },
-              intelligence: { x: -75, y: 80 },
-              operations: { x: -95, y: 8 },
-            }
-          : {
-              data: { x: -140, y: -110 },
-              logic: { x: 140, y: -110 },
-              interface: { x: 180, y: 10 },
-              signals: { x: 130, y: 125 },
-              intelligence: { x: -130, y: 125 },
-              operations: { x: -180, y: 10 },
-            }
+        if (!isMobile) {
+          // Desktop 2D Constellation Assembly
+          tl.to(
+            '.connected-mod-data',
+            { x: -140, y: -110, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<0.05'
+          )
+          tl.to(
+            '.connected-mod-logic',
+            { x: 140, y: -110, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<'
+          )
+          tl.to(
+            '.connected-mod-interface',
+            { x: 180, y: 10, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<'
+          )
+          tl.to(
+            '.connected-mod-signals',
+            { x: 130, y: 125, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<'
+          )
+          tl.to(
+            '.connected-mod-intelligence',
+            { x: -130, y: 125, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<'
+          )
+          tl.to(
+            '.connected-mod-operations',
+            { x: -180, y: 10, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
+            '<'
+          )
 
-        tl.to(
-          '.connected-mod-data',
-          { x: pos.data.x, y: pos.data.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<0.05'
-        )
-        tl.to(
-          '.connected-mod-logic',
-          { x: pos.logic.x, y: pos.logic.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<'
-        )
-        tl.to(
-          '.connected-mod-interface',
-          { x: pos.interface.x, y: pos.interface.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<'
-        )
-        tl.to(
-          '.connected-mod-signals',
-          { x: pos.signals.x, y: pos.signals.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<'
-        )
-        tl.to(
-          '.connected-mod-intelligence',
-          { x: pos.intelligence.x, y: pos.intelligence.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<'
-        )
-        tl.to(
-          '.connected-mod-operations',
-          { x: pos.operations.x, y: pos.operations.y, rotate: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power2.out' },
-          '<'
-        )
+          // Draw SVG Connection lines
+          tl.to(
+            '.connected-line-path',
+            {
+              strokeDashoffset: 0,
+              opacity: 0.95,
+              stagger: 0.04,
+              duration: 0.5,
+              ease: 'power1.inOut',
+            },
+            '<0.1'
+          )
 
-        // Draw SVG Connection lines
-        tl.to(
-          '.connected-line-path',
-          {
-            strokeDashoffset: 0,
-            opacity: 0.95,
-            stagger: 0.04,
-            duration: 0.5,
-            ease: 'power1.inOut',
-          },
-          '<0.1'
-        )
-
-        // Illuminate Core & convergence status
-        tl.to(
-          '.connected-core',
-          {
-            scale: isMobile ? 1.04 : 1.08,
-            borderColor: 'var(--signal)',
-            boxShadow: '0 0 45px rgba(232, 77, 55, 0.45)',
-            duration: 0.35,
-            ease: 'power2.out',
-          },
-          '<0.1'
-        )
-        tl.to(
-          '.connected-core-status',
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.25,
-          },
-          '<0.1'
-        )
+          // Illuminate Core & convergence status
+          tl.to(
+            '.connected-core',
+            {
+              scale: 1.08,
+              borderColor: 'var(--signal)',
+              boxShadow: '0 0 45px rgba(232, 77, 55, 0.45)',
+              duration: 0.35,
+              ease: 'power2.out',
+            },
+            '<0.1'
+          )
+          tl.to(
+            '.connected-core-status',
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.25,
+            },
+            '<0.1'
+          )
+        } else {
+          // Mobile System View Activation
+          tl.to(
+            '.connected-mobile-core-card',
+            {
+              borderColor: 'rgba(232, 77, 55, 0.5)',
+              boxShadow: '0 0 30px rgba(232, 77, 55, 0.25)',
+              duration: 0.35,
+              ease: 'power2.out',
+            },
+            '<0.05'
+          )
+          tl.to(
+            '.mobile-module-card',
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.05,
+              duration: 0.45,
+              ease: 'power2.out',
+            },
+            '<0.1'
+          )
+        }
 
         // Phase 5: Hold assembled system before releasing pin
         tl.to({}, { duration: 0.3 })
