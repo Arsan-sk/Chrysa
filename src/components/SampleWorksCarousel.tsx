@@ -157,7 +157,7 @@ export function SampleWorksCarousel() {
     const zIndex = 20 - absDiff
 
     return {
-      transform: `translateX(calc(-50% + ${translateX}px)) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+      transform: `translateX(calc(-50% + ${translateX}px)) translateY(-50%) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
       opacity: opacity,
       zIndex: zIndex,
       pointerEvents: isCenter ? ('auto' as const) : absDiff <= 1 ? ('auto' as const) : ('none' as const),

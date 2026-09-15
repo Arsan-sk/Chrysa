@@ -45,9 +45,9 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
         CHRYSA<span>.</span>
       </a>
       <nav className="desktop-links" aria-label="Primary navigation">
-        <a href="#sample-works">Products</a>
         <a href="#possibility">Transformation</a>
         <a href="#capabilities">Capabilities</a>
+        <a href="#sample-works">Products</a>
         <a href="#work">Case Studies</a>
         <a href="#approach">Approach</a>
         <a href="#about">About</a>
@@ -65,9 +65,9 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
         {menuOpen ? <X size={22} /> : <Menu size={22} />}
       </button>
       <nav id="mobile-menu" className="mobile-menu" aria-label="Mobile navigation">
-        <a href="#sample-works" onClick={closeMenu}>Products</a>
         <a href="#possibility" onClick={closeMenu}>Transformation</a>
         <a href="#capabilities" onClick={closeMenu}>Capabilities</a>
+        <a href="#sample-works" onClick={closeMenu}>Products</a>
         <a href="#work" onClick={closeMenu}>Case Studies</a>
         <a href="#approach" onClick={closeMenu}>Approach</a>
         <a href="#about" onClick={closeMenu}>About</a>

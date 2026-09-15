@@ -8,7 +8,6 @@ import { ElasticSection } from "./components/ElasticSection";
 import { FaqSection } from "./components/FaqSection";
 import { HeroSection } from "./components/HeroSection";
 import { LayeredRevealWrapper } from "./components/LayeredRevealWrapper";
-import { SampleWorksOverlayWrapper } from "./components/SampleWorksOverlayWrapper";
 import { PhilosophySection } from "./components/PhilosophySection";
 import { ProcessSection } from "./components/ProcessSection";
 import { RecognitionSection } from "./components/RecognitionSection";
@@ -79,10 +78,8 @@ function App() {
         />
         <ElasticSection />
         <CapabilitiesSection />
-        <SampleWorksOverlayWrapper
-          sampleWorks={<SampleWorksSection />}
-          work={<WorkSection />}
-        />
+        <SampleWorksSection />
+        <WorkSection />
         <ProcessSection />
         <FaqSection />
         <AboutSection />

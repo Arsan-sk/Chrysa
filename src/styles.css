@@ -554,7 +554,9 @@ h1 em,
 }
 
 .work {
+  padding-top: clamp(6rem, 10vh, 9rem);
   padding-bottom: 10rem;
+  position: relative;
 }
 
 .work-header {
@@ -3087,46 +3089,6 @@ h1 em,
 }
 
 /* ==========================================================================
-   SAMPLE WORKS OVERLAY WRAPPER — scroll-driven reveal
-   ========================================================================== */
-.swo-container {
-  position: relative;
-  /* height set by JS pin; on mobile it's auto */
-  isolation: isolate;
-}
-
-/* The background layer: SampleWorksSection sits fixed during desktop pin */
-.swo-bg {
-  position: relative;
-  width: 100%;
-  z-index: 1;
-}
-
-/* The slide layer: WorkSection starts off-screen below, slides up on scroll */
-.swo-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  /* rounded top edge for a card-reveal feel */
-  border-radius: 1.5rem 1.5rem 0 0;
-  overflow: hidden;
-  will-change: transform;
-}
-
-@media (max-width: 800px) {
-  /* Mobile: collapse overlay — natural stacked flow */
-  .swo-slide {
-    position: relative;
-    top: auto;
-    left: auto;
-    border-radius: 0;
-    transform: none !important;
-  }
-}
-
-/* ==========================================================================
    04. SAMPLE WORKS SECTION & 3D PERSPECTIVE COVERFLOW
    ========================================================================== */
 .sample-works-section {
@@ -3134,19 +3096,15 @@ h1 em,
   border-top: 1px solid var(--line);
   position: relative;
   overflow: clip;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(3.5rem, 6vh, 5.5rem) clamp(1.25rem, 5vw, 5rem) clamp(5.5rem, 8vh, 8.5rem);
+  padding: clamp(5rem, 8vh, 7rem) clamp(1.25rem, 5vw, 5rem) clamp(5rem, 8vh, 7.5rem);
 }
 
 .sample-works-header {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   align-items: end;
-  gap: 3rem;
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  gap: 2.5rem;
+  margin-bottom: 12px;
 }
 
 .sample-works-header h2 {
@@ -3168,12 +3126,12 @@ h1 em,
 .sample-works-carousel-container {
   position: relative;
   width: 100%;
-  min-height: 540px;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 0 2rem;
+  padding: 0.5rem 0 1.5rem;
   outline: none;
   user-select: none;
   cursor: grab;
@@ -3186,7 +3144,7 @@ h1 em,
 .sample-stage-3d {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 500px;
   perspective: 1200px;
   perspective-origin: center center;
   display: flex;
@@ -3815,12 +3773,8 @@ h1 em,
   }
 
   .sample-works-section {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: clamp(2.5rem, 5vh, 4rem);
-    padding-bottom: clamp(6rem, 12vh, 9rem);
+    padding-top: clamp(3.5rem, 6vh, 4.5rem);
+    padding-bottom: clamp(4.5rem, 8vh, 6rem);
     padding-left: clamp(1rem, 4vw, 2.5rem);
     padding-right: clamp(1rem, 4vw, 2.5rem);
     border-bottom: 1px solid var(--line);
@@ -3830,8 +3784,8 @@ h1 em,
 
   .sample-works-header {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
-    margin-bottom: clamp(1rem, 2vh, 1.75rem);
+    gap: 0.65rem;
+    margin-bottom: 12px;
   }
 
   .recognition {
@@ -3913,20 +3867,20 @@ h1 em,
   }
 
   .sample-works-section {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: clamp(2rem, 4vh, 3rem);
-    padding-bottom: clamp(6rem, 12vh, 9.5rem);
+    padding-top: clamp(2.5rem, 5vh, 3.5rem);
+    padding-bottom: clamp(3.5rem, 7vh, 5rem);
     padding-left: clamp(0.75rem, 3.5vw, 1.5rem);
     padding-right: clamp(0.75rem, 3.5vw, 1.5rem);
     border-bottom: 1px solid var(--line);
   }
 
+  .sample-works-header {
+    margin-bottom: 10px;
+  }
+
   .sample-works-carousel-container {
     min-height: auto;
-    padding: 0.2rem 0 0.5rem;
+    padding: 0 0 0.5rem;
   }
 
   .sample-stage-3d {
