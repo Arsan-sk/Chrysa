@@ -3087,6 +3087,46 @@ h1 em,
 }
 
 /* ==========================================================================
+   SAMPLE WORKS OVERLAY WRAPPER — scroll-driven reveal
+   ========================================================================== */
+.swo-container {
+  position: relative;
+  /* height set by JS pin; on mobile it's auto */
+  isolation: isolate;
+}
+
+/* The background layer: SampleWorksSection sits fixed during desktop pin */
+.swo-bg {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+/* The slide layer: WorkSection starts off-screen below, slides up on scroll */
+.swo-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  /* rounded top edge for a card-reveal feel */
+  border-radius: 1.5rem 1.5rem 0 0;
+  overflow: hidden;
+  will-change: transform;
+}
+
+@media (max-width: 800px) {
+  /* Mobile: collapse overlay — natural stacked flow */
+  .swo-slide {
+    position: relative;
+    top: auto;
+    left: auto;
+    border-radius: 0;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
    04. SAMPLE WORKS SECTION & 3D PERSPECTIVE COVERFLOW
    ========================================================================== */
 .sample-works-section {

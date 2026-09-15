@@ -8,6 +8,7 @@ import { ElasticSection } from "./components/ElasticSection";
 import { FaqSection } from "./components/FaqSection";
 import { HeroSection } from "./components/HeroSection";
 import { LayeredRevealWrapper } from "./components/LayeredRevealWrapper";
+import { SampleWorksOverlayWrapper } from "./components/SampleWorksOverlayWrapper";
 import { PhilosophySection } from "./components/PhilosophySection";
 import { ProcessSection } from "./components/ProcessSection";
 import { RecognitionSection } from "./components/RecognitionSection";
@@ -72,14 +73,16 @@ function App() {
       <SiteHeader />
       <main id="top">
         <HeroSection />
-        <SampleWorksSection />
         <LayeredRevealWrapper
           foreground={<RecognitionSection />}
           background={<TransformationSection />}
         />
         <ElasticSection />
         <CapabilitiesSection />
-        <WorkSection />
+        <SampleWorksOverlayWrapper
+          sampleWorks={<SampleWorksSection />}
+          work={<WorkSection />}
+        />
         <ProcessSection />
         <FaqSection />
         <AboutSection />
